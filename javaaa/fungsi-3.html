@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Barang</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    a {
+      color: blue;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    input {
+      padding: 8px;
+      margin-right: 5px;
+    }
+    button {
+      padding: 8px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Daftar Barang</h1>
+  
+  <input type="text" name="barang" placeholder="Nama barang..." />
+  <button onclick="addBarang()">Tambah Barang</button>
+  
+  <ul id="list-barang"></ul>
+
+  <script>
+    var dataBarang = [
+      "Buku Tulis",
+      "Pensil",
+      "Spidol"
+    ];
+
+    function showBarang(){
+        var listBarang = document.getElementById("list-barang");
+        listBarang.innerHTML = "";
+
+        for(let i = 0; i < dataBarang.length; i++){
+            var btnEdit = "<a href='#' onclick='editBarang("+i+")'>Edit</a>";
+            var btnHapus = "<a href='#' onclick='deleteBarang("+i+")'>Hapus</a>";
+
+            listBarang.innerHTML += "<li>" + dataBarang[i] + " ["+ btnEdit + " | "+ btnHapus +"]</li>";        
+        }
+    }
+
+    function addBarang(){
+        var input = document.querySelector("input[name=barang]");
+        if (input.value.trim() !== "") {
+            dataBarang.push(input.value);
+            input.value = "";
+            showBarang();
+        } else {
+            alert("Nama barang tidak boleh kosong!");
+        }
+    }
+
+    function editBarang(id){
+        var newBarang = prompt("Nama baru", dataBarang[id]);
+        if (newBarang !== null && newBarang.trim() !== "") {
+            dataBarang[id] = newBarang;
+            showBarang();
+        }
+    }
+
+    function deleteBarang(id){
+        if (confirm("Yakin ingin menghapus " + dataBarang[id] + "?")) {
+            dataBarang.splice(id, 1);
+            showBarang();
+        }
+    }
+
+    showBarang();
+  </script>
+</body>
+</html>
